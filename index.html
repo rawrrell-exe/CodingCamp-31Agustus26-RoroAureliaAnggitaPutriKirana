@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Life Dashboard</h1>
+      <button id="theme-toggle" aria-label="Switch theme">Toggle Theme</button>
+    </header>
+
+    <main>
+      <!-- Greeting Panel -->
+      <section aria-label="Greeting" id="greeting-panel">
+        <time id="clock" aria-live="off"></time>
+        <p id="date"></p>
+        <p id="greeting" aria-live="polite"></p>
+      </section>
+
+      <!-- Focus Timer -->
+      <section aria-label="Focus Timer" id="timer-panel">
+        <output id="timer-display">25:00</output>
+        <button id="timer-start">Start</button>
+        <button id="timer-stop">Stop</button>
+        <button id="timer-reset">Reset</button>
+        <label>Session duration
+          <input id="duration-input" type="number" min="1" max="120" />
+        </label>
+        <p id="duration-error" role="alert" aria-live="assertive"></p>
+      </section>
+
+      <!-- Task Manager -->
+      <section aria-label="Task Manager" id="task-panel">
+        <form id="task-form">
+          <input id="task-input" type="text" maxlength="200" placeholder="New task…" aria-label="Task description" />
+          <button type="submit">Add</button>
+          <p id="task-input-error" role="alert" aria-live="assertive"></p>
+        </form>
+        <nav aria-label="Sort tasks">
+          <button data-sort="created">Date</button>
+          <button data-sort="alpha">A–Z</button>
+          <button data-sort="completion">Status</button>
+        </nav>
+        <ul id="task-list" aria-live="polite" aria-label="Task list"></ul>
+        <p id="task-storage-error" role="alert" aria-live="assertive"></p>
+      </section>
+
+      <!-- Quick Links -->
+      <section aria-label="Quick Links" id="links-panel">
+        <form id="link-form">
+          <input id="link-label-input" type="text" maxlength="50" placeholder="Label" aria-label="Link label" />
+          <input id="link-url-input" type="url" maxlength="2048" placeholder="https://…" aria-label="Link URL" />
+          <button type="submit">Add Link</button>
+          <p id="link-error" role="alert" aria-live="assertive"></p>
+        </form>
+        <ul id="link-list" aria-live="polite" aria-label="Quick links list"></ul>
+      </section>
+    </main>
+  </body>
+</html>

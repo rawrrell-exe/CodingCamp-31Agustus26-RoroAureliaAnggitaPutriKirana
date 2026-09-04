@@ -1,0 +1,413 @@
+/* css/style.css — To-Do List Life Dashboard styles */
+
+/* =========================================================================
+   CSS Custom Properties & Theme Classes
+   ========================================================================= */
+
+/* Dark theme (default) */
+html.theme-dark {
+  --bg-surface:   #1a1a2e;
+  --bg-card:      #16213e;
+  --text-primary: #e0e0e0;
+  --text-muted:   #a0a0b0;
+  --accent:       #ff6b9d;
+  --accent-hover: #ff8fb3;
+  --border:       #2a2a4a;
+  --error:        #ff5555;
+}
+
+/* Light theme */
+html.theme-light {
+  --bg-surface:   #f8f8f8;
+  --bg-card:      #ffffff;
+  --text-primary: #1a1a2e;
+  --text-muted:   #666680;
+  --accent:       #d6336c;
+  --accent-hover: #e8527f;
+  --border:       #d0d0e0;
+  --error:        #c0392b;
+}
+
+/* Theme transition — stay under 100 ms (req 10.2) */
+html {
+  transition: background-color 80ms ease, color 80ms ease;
+}
+
+/* =========================================================================
+   Base Reset & Body
+   ========================================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* =========================================================================
+   Header
+   ========================================================================= */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+/* =========================================================================
+   Main grid
+   ========================================================================= */
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 2560px;
+  margin: 0 auto;
+}
+
+@media (max-width: 599px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================================
+   Section (card) styles
+   ========================================================================= */
+
+section {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow: hidden;
+}
+
+section > * + * {
+  margin-top: 0.75rem;
+}
+
+/* =========================================================================
+   Button base styles
+   ========================================================================= */
+
+button {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.875rem;
+  transition: background-color 80ms ease;
+}
+
+button:hover,
+button:focus-visible {
+  background-color: var(--accent-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* =========================================================================
+   Form inputs
+   ========================================================================= */
+
+input[type="text"],
+input[type="number"],
+input[type="url"] {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible,
+input[type="url"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* =========================================================================
+   Separators
+   ========================================================================= */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.75rem 0;
+}
+
+/* =========================================================================
+   Greeting Panel
+   ========================================================================= */
+
+#clock {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+#date {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+#greeting {
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* =========================================================================
+   Focus Timer
+   ========================================================================= */
+
+#timer-display {
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+#timer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#timer-panel > div,
+#timer-panel form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#duration-input[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================================================
+   Task Manager
+   ========================================================================= */
+
+#task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+#task-form input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+nav[aria-label="Sort tasks"] {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* Sort button — inactive uses a subdued style */
+nav[aria-label="Sort tasks"] button {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+nav[aria-label="Sort tasks"] button:hover,
+nav[aria-label="Sort tasks"] button:focus-visible {
+  background-color: var(--accent-hover);
+  color: #fff;
+  border-color: var(--accent-hover);
+}
+
+/* Active sort button (class set by render()) */
+nav[aria-label="Sort tasks"] button.sort-active,
+nav[aria-label="Sort tasks"] button[aria-pressed="true"] {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+#task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+#task-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+#task-list li:last-child {
+  border-bottom: none;
+}
+
+#task-list li input[type="checkbox"] {
+  width: auto;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+#task-list li span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Completed task — strikethrough (req 4.6) */
+#task-list li span.completed {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Edit/delete buttons inside task list — smaller, secondary style */
+#task-list li button {
+  flex-shrink: 0;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  background-color: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+#task-list li button:hover,
+#task-list li button:focus-visible {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* Inline edit input inside task li */
+#task-list li input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =========================================================================
+   Quick Links
+   ========================================================================= */
+
+#link-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+#link-form input {
+  flex: 1;
+  min-width: 100px;
+}
+
+#link-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+#link-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Link button — styled distinctly from destructive buttons */
+#link-list li button:first-child {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Delete button inside link list */
+#link-list li button:last-child {
+  flex-shrink: 0;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  background-color: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+#link-list li button:last-child:hover,
+#link-list li button:last-child:focus-visible {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.link-empty-state {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* =========================================================================
+   Error / alert paragraphs (role="alert")
+   ========================================================================= */
+
+[role="alert"] {
+  color: var(--error);
+  font-size: 0.8rem;
+  min-height: 0;
+}
+
+/* Hide alert when empty (no extra whitespace) */
+[role="alert"]:empty {
+  display: none;
+}
+
+/* =========================================================================
+   Load-failure banner
+   ========================================================================= */
+
+#load-failure {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  gap: 1rem;
+  z-index: 9999;
+}
